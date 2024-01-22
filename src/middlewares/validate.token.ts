@@ -17,6 +17,4 @@ export const authRequired = (req: Request, res: Response, next: NextFunction) =>
         req.body.user = user
         next();
     });
-
-    
-}
+};

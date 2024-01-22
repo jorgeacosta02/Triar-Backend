@@ -6,13 +6,20 @@ import { createToken } from "../libs/jwt";
 
 export const signUpController = async (req: Request, res: Response) => {
     
-    const {email, password} = req.body;
+    const {
+        firstName,
+        lastName,
+        dni,
+        healthPlan,
+        email,
+        password
+    } = req.body;
 
     if(!email || !password){
-        return res.status(400).json({msg: 'Por favor envíe su correo y contraseña.'});
+        return res.status(400).json({msg: 'Por favor envíe todos sus datos.'});
     }
     
-    const user = await User.findOne({email: email});
+    const user = await User.findOne({dni: dni});
     if(user){
         return res.status(400).json({msg: 'El usuario ya existe.'})
     }
@@ -24,6 +31,10 @@ export const signUpController = async (req: Request, res: Response) => {
         const hash = await bcrypt.hash(password, salt);
         // Creo un nuevo usuario
         const newUser = new User ({
+            firstName,
+            lastName,
+            dni,
+            healthPlan,
             email,
             password: hash
         });
@@ -43,15 +54,15 @@ export const signUpController = async (req: Request, res: Response) => {
 
 export const logInController = async (req: Request, res: Response) => {
     // Destructuro los datos de la request
-    const {email, password} = req.body;
+    const {dni, password} = req.body;
     // Veirifico que estén todos los datos necesarios
-    if(!email || !password){
-        return res.status(400).json({msg: 'Por favor envíe su correo y contraseña.'});
+    if(!dni || !password){
+        return res.status(400).json({msg: 'Por favor envíe su dni y contraseña.'});
     };
 
     try {
         // busco el ususario en la db por email
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ dni });
         // envío mensaje de error si no se encuenta el usuario 
         if(!user){
             return res.status(404).json({msg: 'El usuario no existe.'});
@@ -60,7 +71,7 @@ export const logInController = async (req: Request, res: Response) => {
         const pwdMatch = await bcrypt.compare(password, user.password);
         // mensaje de error si la contraseña no coincide
         if(!pwdMatch){
-            return res.status(400).json({msg: 'El correo o la contraseña son incorrectos.'})
+            return res.status(400).json({msg: 'El dni o la contraseña son incorrectos.'})
         };
         // Creo un token para el usuario usando la función de libs/jwt
         const token = await createToken(user);
