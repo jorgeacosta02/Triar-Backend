@@ -86,10 +86,10 @@ export const logOutController = (req: Request, res: Response ) => {
 }
 
 export const profileController = async (req: Request, res: Response) => {
-    if (req.user) {
+    if (req.body.user) {
         try {
-            // Hacer casting a IUser para indicar que req.user tiene la propiedad 'id'
-            const userFound = await User.findById((req.user as IUser).id);
+            // Hacer casting a IUser para indicar que req.body.user tiene la propiedad 'id'
+            const userFound = await User.findById((req.body.user as IUser).id);
             // Ahora TypeScript debería reconocer que userFound está definido y tiene una propiedad 'id'
             return res.json({
                 id: userFound?.id,
