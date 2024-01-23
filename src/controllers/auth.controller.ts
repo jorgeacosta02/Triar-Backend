@@ -11,6 +11,7 @@ export const signUpController = async (req: Request, res: Response) => {
         lastName,
         dni,
         healthPlan,
+        phone,
         email,
         password
     } = req.body;
@@ -35,6 +36,7 @@ export const signUpController = async (req: Request, res: Response) => {
             lastName,
             dni,
             healthPlan,
+            phone,
             email,
             password: hash
         });
