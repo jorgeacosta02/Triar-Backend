@@ -4,7 +4,7 @@ export interface IUser extends Document {
     firstName: string;
     lastName: string;
     dni: number;
-    healthPlan: string;
+    healthPlan?: string;
     phone: number;
     email: string;
     password: string;
@@ -31,7 +31,6 @@ const userSchema = new Schema({
     },
     healthPlan: {
         type: String,
-        required: true,
         lowercase: true,
         trim: true
     },

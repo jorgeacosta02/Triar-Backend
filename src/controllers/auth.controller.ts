@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import { createToken } from "../libs/jwt";
 
 
-export const signUpController = async (req: Request, res: Response) => {
+export const registerController = async (req: Request, res: Response) => {
     
     const {
         firstName,
@@ -16,15 +16,24 @@ export const signUpController = async (req: Request, res: Response) => {
         password
     } = req.body;
 
-    if(!email || !password){
-        return res.status(400).json({msg: 'Por favor envíe todos sus datos.'});
-    }
+    // validations    
+    if(!firstName ) return res.status(400).json({msg: 'Por favor envíe su nombre.'});
+    if(!lastName ) return res.status(400).json({msg: 'Por favor envíe su apellido.'});
+    console.log(dni)
+    if(!dni ) return res.status(400).json({msg: 'Por favor envíe su dni.'});
+    if(!email ) return res.status(400).json({msg: 'Por favor envíe su nombre correo.'});
+    if(!password ) return res.status(400).json({msg: 'Por favor envíe su contraseña.'});
     
+    // user check
     const user = await User.findOne({dni: dni});
+
+    // user already exists
     if(user){
         return res.status(400).json({msg: 'El usuario ya existe.'})
     }
 
+
+    // user does not exists
     try {
         // Genero un salt para hashear
         const salt = await bcrypt.genSalt(10);
@@ -47,10 +56,12 @@ export const signUpController = async (req: Request, res: Response) => {
         // Coloco una cookie con el token en la respuesta
         res.cookie('token', token);
         // Envío la respuesta de éxito al cliente
-        res.status(201).json(`El usuario ${savedUser.email} fue creado con éxito!!`);
+        res.status(201).json(
+            `El usuario ${savedUser.firstName} ${savedUser.lastName} fue creado con éxito!!`
+        );
     } catch (error: any) {
         // Envío respuesta de error al cliente
-        res.status(500).json({message: error.message});
+        res.status(500).json('registerController: ');
     }
 }
 
