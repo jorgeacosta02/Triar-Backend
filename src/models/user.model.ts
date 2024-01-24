@@ -8,6 +8,8 @@ export interface IUser extends Document {
     phone: number;
     email: string;
     password: string;
+    status: boolean;
+    role: string;
 }
 
 const userSchema = new Schema({
@@ -48,6 +50,14 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true 
+    },
+    status: {
+        type: Boolean,
+        default: true
+    },
+    role: {
+        type: String,
+        default: 'user'
     }
 });
 
