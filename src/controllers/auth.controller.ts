@@ -4,6 +4,14 @@ import bcrypt from 'bcrypt';
 import { createToken } from "../libs/jwt";
 
 
+export interface ITokenData {
+    id: string;
+    firstName: string;
+    lastName: string;
+    status: boolean;
+    role: string;
+}
+
 export const registerController = async (req: Request, res: Response) => {
     
     const {
@@ -23,7 +31,7 @@ export const registerController = async (req: Request, res: Response) => {
     if(!dni ) return res.status(400).json({msg: 'Por favor envíe su dni.'});
     if(!email ) return res.status(400).json({msg: 'Por favor envíe su nombre correo.'});
     if(!password ) return res.status(400).json({msg: 'Por favor envíe su contraseña.'});
-    
+
     // user check
     const user = await User.findOne({dni: dni});
 
@@ -52,7 +60,13 @@ export const registerController = async (req: Request, res: Response) => {
         // Grabo el usuaro en la base de datos y lo coloco en una variable.
         const savedUser = await newUser.save();
         // Creo un token para el usuario usando la función de libs/jwt
-        const token = await createToken(savedUser);
+        const token = await createToken({
+            id: savedUser._id,
+            firstName: savedUser.firstName,
+            lastName: savedUser.lastName,
+            status: savedUser.status,
+            role: savedUser.role
+        });
         // Coloco una cookie con el token en la respuesta
         res.cookie('token', token);
         // Envío la respuesta de éxito al cliente
@@ -86,8 +100,17 @@ export const logInController = async (req: Request, res: Response) => {
         if(!pwdMatch){
             return res.status(400).json({msg: 'El dni o la contraseña son incorrectos.'})
         };
+        // Defino el objeto con los datos a enviar en el token.
+        const tokenData: ITokenData = {
+            id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            status: user.status,
+            role: user.role
+        }
         // Creo un token para el usuario usando la función de libs/jwt
-        const token = await createToken(user);
+        const token = await createToken(tokenData);
+        console.log(tokenData);
         // Coloco una cookie con el token en la respuesta
         res.cookie('token', token);
         // Envío la respuesta de éxito al cliente
