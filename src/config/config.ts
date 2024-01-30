@@ -9,7 +9,7 @@ export interface TriarDBType {
 }
 
 export default {
-    jwtSecret: process.env.JWT_SECRET || 'somesecrettoken',
+    jwtSecret: process.env.JWT_SECRET || 'triarsecrettoken',
     TriarDB: {
         URI: process.env.MONGODB_URI,
         USER: process.env.MONGODB_USER,

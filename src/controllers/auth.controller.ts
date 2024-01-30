@@ -108,11 +108,13 @@ export const logInController = async (req: Request, res: Response) => {
             status: user.status,
             role: user.role
         }
+        console.log('tokenData en loginController', tokenData);
         // Creo un token para el usuario usando la función de libs/jwt
         const token = await createToken(tokenData);
-        console.log(tokenData);
+        console.log('token en loginController', token);
         // Coloco una cookie con el token en la respuesta
         res.cookie('token', token);
+    
         // Envío la respuesta de éxito al cliente
         res.status(201).json({user})
     } catch (error: any) {
