@@ -12,7 +12,6 @@ export const createToken = (user: ITokenUserData): Promise<string> => {
         jwt.sign(
             {
                 id: user.id,
-                
             },
             config.jwtSecret,
             {
