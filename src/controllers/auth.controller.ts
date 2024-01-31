@@ -1,16 +1,9 @@
 import { Request, Response } from "express";
-import User, { IUser } from "../models/user.model";
+import User from "../models/user.model";
 import bcrypt from 'bcrypt';
 import { createToken } from "../libs/jwt";
+import { ITokenUserData, IUserData } from "../Interfaces/userInterfaces";
 
-
-export interface ITokenData {
-    id: string;
-    firstName: string;
-    lastName: string;
-    status: boolean;
-    role: string;
-}
 
 export const registerController = async (req: Request, res: Response) => {
     
@@ -60,11 +53,11 @@ export const registerController = async (req: Request, res: Response) => {
         // Grabo el usuaro en la base de datos y lo coloco en una variable.
         const savedUser = await newUser.save();
         // Creo un token para el usuario usando la función de libs/jwt
-        const token = await createToken({
+        const token: string = await createToken({
             id: savedUser._id,
             firstName: savedUser.firstName,
             lastName: savedUser.lastName,
-            status: savedUser.status,
+            active: savedUser.active,
             role: savedUser.role
         });
         // Coloco una cookie con el token en la respuesta
@@ -80,6 +73,7 @@ export const registerController = async (req: Request, res: Response) => {
 }
 
 export const logInController = async (req: Request, res: Response) => {
+    console.log('res.cookie: ', res.cookie);
     // Destructuro los datos de la request
     const {dni, password} = req.body;
     // Veirifico que estén todos los datos necesarios
@@ -101,11 +95,11 @@ export const logInController = async (req: Request, res: Response) => {
             return res.status(400).json({msg: 'El dni o la contraseña son incorrectos.'})
         };
         // Defino el objeto con los datos a enviar en el token.
-        const tokenData: ITokenData = {
+        const tokenData: ITokenUserData = {
             id: user._id,
             firstName: user.firstName,
             lastName: user.lastName,
-            status: user.status,
+            active: user.active,
             role: user.role
         }
         console.log('tokenData en loginController', tokenData);
@@ -141,7 +135,7 @@ export const profileController = async (req: Request, res: Response) => {
     if (req.body.user) {
         try {
             // Hacer casting a IUser para indicar que req.body.user tiene la propiedad 'id'
-            const userFound = await User.findById((req.body.user as IUser).id);
+            const userFound = await User.findById((req.body.user as IUserData).id);
             // Ahora TypeScript debería reconocer que userFound está definido y tiene una propiedad 'id'
             return res.json({
                 id: userFound?.id,

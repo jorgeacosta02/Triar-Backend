@@ -1,16 +1,6 @@
-import { model, Schema, Document} from "mongoose";
+import { model, Schema } from "mongoose";
+import { IUserData } from "../Interfaces/userInterfaces";
 
-export interface IUser extends Document {
-    firstName: string;
-    lastName: string;
-    dni: number;
-    healthPlan?: string;
-    phone: number;
-    email: string;
-    password: string;
-    status: boolean;
-    role: string;
-}
 
 const userSchema = new Schema({
     firstName: {
@@ -51,7 +41,7 @@ const userSchema = new Schema({
         type: String,
         required: true 
     },
-    status: {
+    active: {
         type: Boolean,
         default: true
     },
@@ -61,4 +51,4 @@ const userSchema = new Schema({
     }
 });
 
-export default model<IUser>('User', userSchema);
+export default model<IUserData>('User', userSchema);

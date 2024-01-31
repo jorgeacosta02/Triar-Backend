@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import { IUser } from "../models/user.model";
 import config from "../config/config";
 import { ITokenUserData } from "../Interfaces/userInterfaces";
 
