@@ -107,13 +107,12 @@ export const logInController = async (req: Request, res: Response) => {
         const token = await createToken(tokenData);
         console.log('token en loginController', token);
         // Coloco una cookie con el token en la respuesta
-        res.cookie('token', token, {
-            sameSite: 'none',
-            secure: true, // Asegúrate de que secure esté configurado si estás usando HTTPS
-        });
+        res.cookie('token', token);
+
+
         // Envío la respuesta de éxito al cliente
         console.log(user);
-        res.status(201).json({user})
+        res.status(201).json({access: true, user: tokenData})
     } catch (error: any) {
         // envío mensaje de error si ocurriera
         res.status(500).json({message: error.message});
