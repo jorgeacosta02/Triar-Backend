@@ -45,7 +45,7 @@ const userLogInController = async (req: Request, res: Response) => {
 
         // Envío la respuesta de éxito al cliente
         console.log(user);
-        res.status(201).json({access: true, user: tokenData})
+        res.status(201).json({user: tokenData})
     } catch (error: any) {
         // envío mensaje de error si ocurriera
         res.status(500).json({message: error.message});
