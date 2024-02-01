@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import User from "../models/user.model";
+import User from "../../models/user.model";
 import bcrypt from 'bcrypt';
-import { createToken } from "../libs/jwt";
-import { ITokenUserData, IUserData } from "../Interfaces/userInterfaces";
+import { createToken } from "../../libs/jwt";
+import { ITokenUserData, IUserData } from "../../Interfaces/userInterfaces";
 
 
 export const registerController = async (req: Request, res: Response) => {
