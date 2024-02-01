@@ -1,7 +1,7 @@
 import { Document } from "mongoose";
 
 
-// Interface for save user for db
+// Interface for saving user on db
 export interface IUserData extends Document {
     firstName: string;
     lastName: string;
