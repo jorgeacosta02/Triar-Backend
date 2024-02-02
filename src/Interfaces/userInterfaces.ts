@@ -53,10 +53,13 @@ export interface ApiResponse {
 
 // tokenInterface 'user'
 export interface ITokenUserData {
-    id: string,
-    firstName: string,
-    lastName: string,
-    active: boolean
-    role: string,
+    id: string;
+    firstName: string;
+    lastName: string;
+    dni: number;
+    phone: number;
+    email: string;
+    active: boolean;
+    role: string;
 }
   

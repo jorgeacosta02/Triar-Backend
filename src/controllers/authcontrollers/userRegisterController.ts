@@ -53,11 +53,14 @@ const userRegisterController = async (req: Request, res: Response) => {
         const savedUser = await newUser.save();
         // Creo un token para el usuario usando la función de libs/jwt
         const token: string = await createToken({
-            id: savedUser._id,
-            firstName: savedUser.firstName,
-            lastName: savedUser.lastName,
-            active: savedUser.active,
-            role: savedUser.role
+            id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            dni: user.dni,
+            phone: user.phone,
+            email: user.email,
+            active: user.active,
+            role: user.role
         });
         // Coloco una cookie con el token en la respuesta
         res.cookie('token', token);

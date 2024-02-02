@@ -32,6 +32,9 @@ const userLogInController = async (req: Request, res: Response) => {
             id: user._id,
             firstName: user.firstName,
             lastName: user.lastName,
+            dni: user.dni,
+            phone: user.phone,
+            email: user.email,
             active: user.active,
             role: user.role
         }
