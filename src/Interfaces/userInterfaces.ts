@@ -10,7 +10,7 @@ export interface IUserData extends Document {
     phone: string;
     email: string;
     password: string;
-    position: string;
+    healthPlan: string;
     active: boolean;
     role: string;
 }
@@ -24,7 +24,7 @@ export interface IUserDataFromDB {
     phone: string;
     email: string;
     password: string;
-    position: string;
+    healthPlan: string;
     active: boolean;
     role: string;
 }
@@ -59,7 +59,7 @@ export interface ITokenUserData {
     dni: string;
     phone: string;
     email: string;
-    position: string;
+    healthPlan: string;
     active: boolean;
     role: string;
 }

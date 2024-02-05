@@ -23,7 +23,7 @@ export class UserModel extends Model {
   @Column
   lastName!: string;
   @Column({
-    type: DataType.INTEGER, // Ajusta el tipo según lo que uses para DNI
+    type: DataType.STRING, // Ajusta el tipo según lo que uses para DNI
     allowNull: false,
   })
   dni!: string;
@@ -34,10 +34,19 @@ export class UserModel extends Model {
   @Column
   password!: string;
   @Column
-  position!: string;
-  @Column
+  healthPlan!: string;
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: true, // Valor por defecto para la columna 'active'
+  })
   active!: boolean;
-  @Column
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    defaultValue: 'user', // Valor por defecto para la columna 'role'
+  })
   role!: string;
 
   // Otros campos y decoradores según tu modelo
