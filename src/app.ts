@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 import './db';
 
 dotenv.config();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 4000;
 
 // Initialization
 const app = express();

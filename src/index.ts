@@ -1,6 +1,43 @@
+import sequelize from "./db";
 import app from "./app";
-import './db';
+import dotenv from "dotenv";
+import { SyncOptions } from 'sequelize';
+import { Request, Response, NextFunction, ErrorRequestHandler } from "express";
 
-app.listen(app.get('port'), () => {
-    console.log(`Server listening on port ${app.get('port')}`);
+dotenv.config();
+const port = process.env.PORT || 5000;
+
+// Definir un modelo para la sincronización de Sequelize
+interface ISyncOptions extends SyncOptions {
+  // force?: false;
+}
+
+// Sincronizar la base de datos y levantar el servidor
+async function main() {
+  try {
+    // Verificar la conexión a la base de datos
+    await sequelize.authenticate();
+    console.log("Conexión a la Base de Datos exitosa");
+
+    // Sincronizar la base de datos
+    const syncOptions: ISyncOptions = { force: false };
+    await sequelize.sync(syncOptions);
+    console.log("La base de datos se ha sincronizado correctamente");
+
+  } catch (error) {
+    console.error("Error al conectarse a la Base de Datos:", error);
+    process.exit(1); // Salir de la aplicación en caso de error
+  }
+}
+
+main();
+
+// Manejador de errores global para Express
+app.use((err:Error, req:Request, res:Response, next:NextFunction) => {
+  console.error("Error en la aplicación:", err);
+  res.status(500).send("Internal Server Error");
+});
+
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });

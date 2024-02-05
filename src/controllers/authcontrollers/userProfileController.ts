@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import User from "../../models/user.model";
+import { UserModel } from "../../models/UserModel";
 import { IUserDataFromDB } from "../../Interfaces/userInterfaces";
 
 
@@ -7,7 +7,7 @@ const userProfileController = async (req: Request, res: Response) => {
     if (req.body.user) {
         try {
             // Hacer casting a IUser para indicar que req.body.user tiene la propiedad 'id'
-            const userFound = await User.findById((req.body.user as IUserDataFromDB)._id);
+            const userFound = await UserModel.findByPk((req.body.user as IUserDataFromDB).id);
             // Ahora TypeScript debería reconocer que userFound está definido y tiene una propiedad 'id'
             return res.json({
                 id: userFound?.id,

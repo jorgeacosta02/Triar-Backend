@@ -1,11 +1,14 @@
-import mongoose from "mongoose";
+import { Sequelize } from 'sequelize-typescript';
+import { UserModel } from './models/UserModel';
+import { TaskModel } from './models/TaskModel';
 
-mongoose.connect('mongodb://localhost:27017/triar')
-    .then(() => console.log('Connected to triarDB'))
-    .catch((err) => console.log('Error en triarDB'))
-
-const connection = mongoose.connection;
-
-connection.once('open', () => {
-    console.log(('TriarDB once open'))
+const sequelize = new Sequelize({
+  dialect: 'postgres',
+  host: 'localhost',
+  username: 'postgres',
+  password: 'admin',
+  database: 'triar',
+  models: [UserModel, TaskModel],
 });
+
+export default sequelize;

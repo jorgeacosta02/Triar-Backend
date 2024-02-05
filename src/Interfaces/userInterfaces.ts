@@ -3,27 +3,28 @@ import { Document } from "mongoose";
 
 // Interface for saving user on db
 export interface IUserData extends Document {
+    id: string,
     firstName: string;
     lastName: string;
-    dni: number;
-    healthPlan?: string;
-    phone: number;
+    dni: string;
+    phone: string;
     email: string;
     password: string;
+    position: string;
     active: boolean;
     role: string;
 }
 
 // Interface user from db
 export interface IUserDataFromDB {
-    _id: string,
+    id: string,
     firstName: string;
     lastName: string;
-    dni: number;
-    healthPlan?: string;
-    phone: number;
+    dni: string;
+    phone: string;
     email: string;
     password: string;
+    position: string;
     active: boolean;
     role: string;
 }
@@ -32,16 +33,15 @@ export interface IUserDataFromDB {
 export interface IRegisterData {
     firstName: string;
     lastName: string;
-    dni: number;
-    healthPlan?: string;
-    phone: number;
+    dni: string;
+    phone: string;
     email: string;
     password: string;
 }
 
 // LOGIN
 export interface ILoginData {
-    dni: number;
+    dni: string;
     password: string;
   }
 
@@ -56,9 +56,10 @@ export interface ITokenUserData {
     id: string;
     firstName: string;
     lastName: string;
-    dni: number;
-    phone: number;
+    dni: string;
+    phone: string;
     email: string;
+    position: string;
     active: boolean;
     role: string;
 }
