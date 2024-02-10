@@ -4,7 +4,10 @@ import userLogInController from '../controllers/authControllers/userControllers/
 import userLogOutController from '../controllers/authControllers/userControllers/userLogoutController';
 import userProfileController from '../controllers/authControllers/userControllers/userProfileController';
 import profRegisterController from '../controllers/authControllers/profControllers/profRegisterController';
-import { authRequired } from '../middlewares/validate.token'
+import profProfileController from '../controllers/authControllers/profControllers/profProfileController';
+
+import { userAuthRequired } from '../middlewares/userValidate.token'
+import { profAuthRequired } from '../middlewares/profValidate.token';
 
 const authRoutes = Router();
 
@@ -12,9 +15,10 @@ const authRoutes = Router();
 authRoutes.post('/register', userRegisterController);
 authRoutes.post('/login', userLogInController);
 authRoutes.post('/logout', userLogOutController);
-authRoutes.get('/profile', authRequired, userProfileController);
+authRoutes.get('/profile', userAuthRequired, userProfileController);
 
 // ProfRoutes
 authRoutes.post('/prof-register', profRegisterController)
+authRoutes.get('/prof-profile', profAuthRequired, profProfileController)
 
 export default authRoutes

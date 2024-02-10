@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { UserModel } from "../../../models/UserModel";
 import bcrypt from 'bcrypt';
-import { createToken } from "../../../libs/jwt";
+import { createUserToken } from "../../../libs/jwt";
 import { ITokenUserData } from "../../../Interfaces/userInterfaces";
 
 
@@ -45,7 +45,7 @@ const userLogInController = async (req: Request, res: Response) => {
         }
         console.log('tokenData en loginController', tokenData);
         // Creo un token para el usuario usando la función de libs/jwt
-        const token = await createToken(tokenData);
+        const token = await createUserToken(tokenData);
         console.log('token en loginController', token);
         // Coloco una cookie con el token en la respuesta
         res.cookie('token', token);

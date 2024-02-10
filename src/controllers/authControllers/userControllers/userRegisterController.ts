@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { UserModel } from "../../../models/UserModel";
 import bcrypt from 'bcrypt';
-import { createToken } from "../../../libs/jwt";
+import { createUserToken } from "../../../libs/jwt";
 
 
 const userRegisterController = async (req: Request, res: Response) => {
@@ -56,7 +56,7 @@ const userRegisterController = async (req: Request, res: Response) => {
         // Grabo el usuaro en la base de datos y lo coloco en una variable.
         const savedUser = await newUser.save();
         // Creo un token para el usuario usando la función de libs/jwt
-        const token: string = await createToken({
+        const token: string = await createUserToken({
             id: savedUser.id,
             firstName: savedUser.firstName,
             lastName: savedUser.lastName,

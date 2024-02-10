@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express"
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
 
-export const authRequired = (req: Request, res: Response, next: NextFunction) => {
+export const userAuthRequired = (req: Request, res: Response, next: NextFunction) => {
     const { token } = req.cookies;
     
     // console.log('token en middleware:', token);

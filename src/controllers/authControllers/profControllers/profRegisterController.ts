@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { ProfModel } from "../../../models/ProfModel";
 import bcrypt from 'bcrypt';
-import { createToken } from "../../../libs/jwt";
+import { createProfToken } from "../../../libs/jwt";
 
 
-const userRegisterController = async (req: Request, res: Response) => {
+const profRegisterController = async (req: Request, res: Response) => {
     
     const {
         firstName,
@@ -27,15 +27,14 @@ const userRegisterController = async (req: Request, res: Response) => {
     // user check
     const user = await ProfModel.findOne({
         where:{
-            dni:dni
+            dni
         }
     });
 
     // user already exists
     if(user){
-        return res.status(400).json({msg: 'El usuario ya existe.'})
+        return res.status(400).json({msg: 'El profesional ya existe.'})
     }
-
 
     // user does not exists
     try {
@@ -56,7 +55,7 @@ const userRegisterController = async (req: Request, res: Response) => {
         // Grabo el usuaro en la base de datos y lo coloco en una variable.
         const savedUser = await newProf.save();
         // Creo un token para el usuario usando la función de libs/jwt
-        const token: string = await createToken({
+        const token: string = await createProfToken({
             id: savedUser.id,
             firstName: savedUser.firstName,
             lastName: savedUser.lastName,
@@ -79,4 +78,4 @@ const userRegisterController = async (req: Request, res: Response) => {
     }
 }
 
-export default userRegisterController
+export default profRegisterController

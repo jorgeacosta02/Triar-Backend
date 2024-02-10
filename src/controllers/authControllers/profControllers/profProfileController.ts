@@ -3,7 +3,7 @@ import { ProfModel } from "../../../models/ProfModel";
 import { IProfDataFromDB } from "../../../Interfaces/profInterfaces";
 
 
-const userProfileController = async (req: Request, res: Response) => {
+const profProfileController = async (req: Request, res: Response) => {
     if (req.body.prof) {
         try {
             // Hacer casting a IUser para indicar que req.body.user tiene la propiedad 'id'
@@ -20,4 +20,4 @@ const userProfileController = async (req: Request, res: Response) => {
     }
 }
 
-export default userProfileController
+export default profProfileController

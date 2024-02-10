@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ProfModel } from "../../../models/ProfModel";
 import bcrypt from 'bcrypt';
-import { createToken } from "../../../libs/jwt";
+import { createProfToken } from "../../../libs/jwt";
 import { ITokenProfData } from "../../../Interfaces/profInterfaces";
 
 
@@ -45,7 +45,7 @@ const profLogInController = async (req: Request, res: Response) => {
         }
         console.log('tokenData en profloginController', tokenData);
         // Creo un token para el usuario usando la función de libs/jwt
-        const token = await createToken(tokenData);
+        const token = await createProfToken(tokenData);
         console.log('token en profloginController', token);
         // Coloco una cookie con el token en la respuesta
         res.cookie('token', token);

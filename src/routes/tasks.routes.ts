@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authRequired } from "../middlewares/validate.token";
+import { userAuthRequired } from "../middlewares/userValidate.token";
 import {
     getTasksController,
     createTaskController,
@@ -10,10 +10,10 @@ import {
 
 const tasksRouter = Router();
 
-tasksRouter.get('/tasks', authRequired, getTasksController);
-tasksRouter.get('/tasks/:id', authRequired, getTaskController);
-tasksRouter.post('/tasks', authRequired, createTaskController);
-tasksRouter.delete('/tasks/:id', authRequired, deleteTaskController);
-tasksRouter.put('/tasks/:id', authRequired, updateTaskController);
+tasksRouter.get('/tasks', userAuthRequired, getTasksController);
+tasksRouter.get('/tasks/:id', userAuthRequired, getTaskController);
+tasksRouter.post('/tasks', userAuthRequired, createTaskController);
+tasksRouter.delete('/tasks/:id', userAuthRequired, deleteTaskController);
+tasksRouter.put('/tasks/:id', userAuthRequired, updateTaskController);
 
 export default tasksRouter
