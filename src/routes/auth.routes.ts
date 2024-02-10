@@ -12,10 +12,10 @@ import { profAuthRequired } from '../middlewares/profValidate.token';
 const authRoutes = Router();
 
 // UserRoutes
-authRoutes.post('/register', userRegisterController);
-authRoutes.post('/login', userLogInController);
-authRoutes.post('/logout', userLogOutController);
-authRoutes.get('/profile', userAuthRequired, userProfileController);
+authRoutes.post('/user-register', userRegisterController);
+authRoutes.post('/user-login', userLogInController);
+authRoutes.post('/user-logout', userLogOutController);
+authRoutes.get('/user-profile', userAuthRequired, userProfileController);
 
 // ProfRoutes
 authRoutes.post('/prof-register', profRegisterController)
