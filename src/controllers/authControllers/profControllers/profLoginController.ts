@@ -5,7 +5,7 @@ import { createToken } from "../../../libs/jwt";
 import { ITokenUserData } from "../../../Interfaces/userInterfaces";
 
 
-const userLogInController = async (req: Request, res: Response) => {
+const profLogInController = async (req: Request, res: Response) => {
     console.log('res.cookie: ', res.cookie);
     // Destructuro los datos de la request
     const {dni, password} = req.body;
@@ -16,48 +16,48 @@ const userLogInController = async (req: Request, res: Response) => {
 
     try {
         // busco el ususario en la db por email
-        const user = await ProfModel.findOne({
+        const prof = await ProfModel.findOne({
             where: {
               dni // Ajusta esto según tus necesidades
             },
         });
         // envío mensaje de error si no se encuenta el usuario 
-        if(!user){
-            return res.status(404).json({msg: 'El usuario no existe.'});
+        if(!prof){
+            return res.status(404).json({msg: 'El profesional no existe.'});
         };
         // comparo la contraseña recibida con la del usuario de la db
-        const pwdMatch = await bcrypt.compare(password, user.password);
+        const pwdMatch = await bcrypt.compare(password, prof.password);
         // mensaje de error si la contraseña no coincide
         if(!pwdMatch){
             return res.status(400).json({msg: 'El dni o la contraseña son incorrectos.'})
         };
         // Defino el objeto con los datos a enviar en el token.
         const tokenData: ITokenUserData = {
-            id: user.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            dni: user.dni,
-            phone: user.phone,
-            email: user.email,
-            healthPlan: user.healthPlan,
-            active: user.active,
-            role: user.role
+            id: prof.id,
+            firstName: prof.firstName,
+            lastName: prof.lastName,
+            dni: prof.dni,
+            phone: prof.phone,
+            email: prof.email,
+            healthPlan: prof.healthPlan,
+            active: prof.active,
+            role: prof.role
         }
-        console.log('tokenData en loginController', tokenData);
+        console.log('tokenData en profloginController', tokenData);
         // Creo un token para el usuario usando la función de libs/jwt
         const token = await createToken(tokenData);
-        console.log('token en loginController', token);
+        console.log('token en profloginController', token);
         // Coloco una cookie con el token en la respuesta
         res.cookie('token', token);
 
 
         // Envío la respuesta de éxito al cliente
-        console.log(user);
-        res.status(201).json({user: tokenData})
+        console.log(prof);
+        res.status(201).json({prof: tokenData})
     } catch (error: any) {
         // envío mensaje de error si ocurriera
         res.status(500).json({message: error.message});
     }
 }
 
-export default userLogInController
+export default profLogInController
