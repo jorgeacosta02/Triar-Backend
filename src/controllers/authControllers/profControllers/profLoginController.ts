@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { UserModel } from "../../models/UserModel";
+import { UserModel } from "../../../models/UserModel";
 import bcrypt from 'bcrypt';
-import { createToken } from "../../libs/jwt";
-import { ITokenUserData } from "../../Interfaces/userInterfaces";
+import { createToken } from "../../../libs/jwt";
+import { ITokenUserData } from "../../../Interfaces/userInterfaces";
 
 
 const userLogInController = async (req: Request, res: Response) => {

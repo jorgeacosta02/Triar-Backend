@@ -1,9 +1,8 @@
 import { Router } from 'express';
-import userRegisterController from '../controllers/authcontrollers/userRegisterController';
-import userLogInController from '../controllers/authcontrollers/userLoginController';
-import userLogOutController from '../controllers/authcontrollers/userLogoutController';
-import userProfileController from '../controllers/authcontrollers/userProfileController';
- 
+import userRegisterController from '../controllers/authControllers/userControllers/userRegisterController';
+import userLogInController from '../controllers/authControllers/userControllers/userLoginController';
+import userLogOutController from '../controllers/authControllers/userControllers/userLogoutController';
+import userProfileController from '../controllers/authControllers/userControllers/userProfileController';
 import { authRequired } from '../middlewares/validate.token'
 
 const authRoutes = Router();

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { UserModel } from "../../models/UserModel";
+import { UserModel } from "../../../models/UserModel";
 import bcrypt from 'bcrypt';
-import { createToken } from "../../libs/jwt";
+import { createToken } from "../../../libs/jwt";
 
 
 const userRegisterController = async (req: Request, res: Response) => {
