@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { ProfModel } from "../../../models/ProfModel";
 import bcrypt from 'bcrypt';
 import { createToken } from "../../../libs/jwt";
-import { ITokenUserData } from "../../../Interfaces/userInterfaces";
+import { ITokenProfData } from "../../../Interfaces/profInterfaces";
 
 
 const profLogInController = async (req: Request, res: Response) => {
@@ -32,7 +32,7 @@ const profLogInController = async (req: Request, res: Response) => {
             return res.status(400).json({msg: 'El dni o la contraseña son incorrectos.'})
         };
         // Defino el objeto con los datos a enviar en el token.
-        const tokenData: ITokenUserData = {
+        const tokenData: ITokenProfData = {
             id: prof.id,
             firstName: prof.firstName,
             lastName: prof.lastName,
