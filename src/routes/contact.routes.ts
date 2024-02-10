@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import postContactController from '../controllers/postContact.controller';
+import postContactController from '../controllers/postContactController';
 
 const contactRoutes = Router();
 
