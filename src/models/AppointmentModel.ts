@@ -7,8 +7,8 @@ import {
     DataType,
   } from 'sequelize-typescript';
   
-  @Table({ tableName: 'tasks' })
-  export class TaskModel extends Model {
+  @Table({ tableName: 'appointment' })
+  export class AppointmentModel extends Model {
     @PrimaryKey
     @Default(DataType.UUIDV4)
     @Column({

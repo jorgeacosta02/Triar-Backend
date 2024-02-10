@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UserModel } from "../../../models/UserModel";
+import { ProfModel } from "../../../models/ProfModel";
 import bcrypt from 'bcrypt';
 import { createToken } from "../../../libs/jwt";
 
@@ -25,7 +25,7 @@ const userRegisterController = async (req: Request, res: Response) => {
     if(!password ) return res.status(400).json({msg: 'Por favor envíe su contraseña.'});
 
     // user check
-    const user = await UserModel.findOne({
+    const user = await ProfModel.findOne({
         where:{
             dni:dni
         }
@@ -44,7 +44,7 @@ const userRegisterController = async (req: Request, res: Response) => {
         // Hasheo la contraseña
         const hash = await bcrypt.hash(password, salt);
         // Creo un nuevo usuario
-        const newUser = new UserModel ({
+        const newProf = new ProfModel ({
             firstName,
             lastName,
             dni,
@@ -54,7 +54,7 @@ const userRegisterController = async (req: Request, res: Response) => {
             password: hash
         });
         // Grabo el usuaro en la base de datos y lo coloco en una variable.
-        const savedUser = await newUser.save();
+        const savedUser = await newProf.save();
         // Creo un token para el usuario usando la función de libs/jwt
         const token: string = await createToken({
             id: savedUser.id,
@@ -71,7 +71,7 @@ const userRegisterController = async (req: Request, res: Response) => {
         res.cookie('token', token);
         // Envío la respuesta de éxito al cliente
         res.status(201).json(
-            `El usuario ${savedUser.firstName} ${savedUser.lastName} fue creado con éxito!!`
+            `El profesional ${savedUser.firstName} ${savedUser.lastName} fue creado con éxito!!`
         );
     } catch (error: any) {
         // Envío respuesta de error al cliente
