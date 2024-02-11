@@ -7,7 +7,7 @@ import {
     DataType,
   } from 'sequelize-typescript';
   
-  @Table({ tableName: 'prof' })
+  @Table({ tableName: 'worker' })
   export class WorkerModel extends Model {
     @PrimaryKey
     @Default(DataType.UUIDV4)
