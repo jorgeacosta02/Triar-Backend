@@ -4,7 +4,7 @@ import userLogInController from '../controllers/authControllers/userControllers/
 import userLogOutController from '../controllers/authControllers/userControllers/userLogoutController';
 import userProfileController from '../controllers/authControllers/userControllers/userProfileController';
 import workerRegisterController from '../controllers/authControllers/workerControllers/workerRegisterController';
-import workerProfileController from '../controllers/authControllers/workerControllers/profProfileController';
+import workerProfileController from '../controllers/authControllers/workerControllers/workerProfileController';
 
 import { userAuthRequired } from '../middlewares/userValidate.token'
 import { workerAuthRequired } from '../middlewares/workerValidate.token';
