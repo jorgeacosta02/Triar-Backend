@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import config from "../config/config";
 import { ITokenUserData } from "../Interfaces/userInterfaces";
-import { ITokenProfData } from "../Interfaces/profInterfaces";
+import { ITokenWorkerData } from "../Interfaces/workerInterfaces";
 
 
 // Crea un token para crear usuario
@@ -33,7 +33,7 @@ export const createUserToken = (user: ITokenUserData): Promise<string> => {
 
 
 // Crea un token para crear usuario
-export const createProfToken = (user: ITokenProfData): Promise<string> => {
+export const createWorkerToken = (user: ITokenWorkerData): Promise<string> => {
     
     //devuelve una promesa resuelta o rechazada
     return new Promise((resolve, reject) => {

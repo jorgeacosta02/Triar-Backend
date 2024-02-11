@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 
-const profLogOutController = (req: Request, res: Response ) => {
+const workerLogOutController = (req: Request, res: Response ) => {
     // establezco cookie con token vacío
     res.cookie('token','',
         {
@@ -12,4 +12,4 @@ const profLogOutController = (req: Request, res: Response ) => {
     res.sendStatus(200);
 }
 
-export default profLogOutController
+export default workerLogOutController

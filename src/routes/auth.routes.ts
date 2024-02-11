@@ -3,11 +3,11 @@ import userRegisterController from '../controllers/authControllers/userControlle
 import userLogInController from '../controllers/authControllers/userControllers/userLoginController';
 import userLogOutController from '../controllers/authControllers/userControllers/userLogoutController';
 import userProfileController from '../controllers/authControllers/userControllers/userProfileController';
-import profRegisterController from '../controllers/authControllers/profControllers/profRegisterController';
-import profProfileController from '../controllers/authControllers/profControllers/profProfileController';
+import workerRegisterController from '../controllers/authControllers/workerControllers/workerRegisterController';
+import workerProfileController from '../controllers/authControllers/workerControllers/profProfileController';
 
 import { userAuthRequired } from '../middlewares/userValidate.token'
-import { profAuthRequired } from '../middlewares/profValidate.token';
+import { workerAuthRequired } from '../middlewares/workerValidate.token';
 
 const authRoutes = Router();
 
@@ -18,7 +18,7 @@ authRoutes.post('/user-logout', userLogOutController);
 authRoutes.get('/user-profile', userAuthRequired, userProfileController);
 
 // ProfRoutes
-authRoutes.post('/prof-register', profRegisterController)
-authRoutes.get('/prof-profile', profAuthRequired, profProfileController)
+authRoutes.post('/worker-register', workerRegisterController)
+authRoutes.get('/worker-profile', workerAuthRequired, workerProfileController)
 
 export default authRoutes

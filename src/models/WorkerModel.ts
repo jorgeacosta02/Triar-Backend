@@ -8,7 +8,7 @@ import {
   } from 'sequelize-typescript';
   
   @Table({ tableName: 'prof' })
-  export class ProfModel extends Model {
+  export class WorkerModel extends Model {
     @PrimaryKey
     @Default(DataType.UUIDV4)
     @Column({

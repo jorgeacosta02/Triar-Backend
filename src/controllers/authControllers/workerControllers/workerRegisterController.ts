@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { ProfModel } from "../../../models/ProfModel";
+import { WorkerModel } from "../../../models/WorkerModel";
 import bcrypt from 'bcrypt';
-import { createProfToken } from "../../../libs/jwt";
+import { createWorkerToken } from "../../../libs/jwt";
 
 
-const profRegisterController = async (req: Request, res: Response) => {
+const workerRegisterController = async (req: Request, res: Response) => {
     
     const {
         firstName,
@@ -24,26 +24,26 @@ const profRegisterController = async (req: Request, res: Response) => {
     if(!email ) return res.status(400).json({msg: 'Por favor envíe su nombre correo.'});
     if(!password ) return res.status(400).json({msg: 'Por favor envíe su contraseña.'});
 
-    // user check
-    const user = await ProfModel.findOne({
+    // worker check
+    const user = await WorkerModel.findOne({
         where:{
             dni
         }
     });
 
-    // user already exists
+    // worker already exists
     if(user){
-        return res.status(400).json({msg: 'El profesional ya existe.'})
+        return res.status(400).json({msg: 'El trabajador ya existe.'})
     }
 
-    // user does not exists
+    // worker does not exists
     try {
         // Genero un salt para hashear
         const salt = await bcrypt.genSalt(10);
         // Hasheo la contraseña
         const hash = await bcrypt.hash(password, salt);
         // Creo un nuevo usuario
-        const newProf = new ProfModel ({
+        const newWorker = new WorkerModel ({
             firstName,
             lastName,
             dni,
@@ -53,24 +53,24 @@ const profRegisterController = async (req: Request, res: Response) => {
             password: hash
         });
         // Grabo el usuaro en la base de datos y lo coloco en una variable.
-        const savedUser = await newProf.save();
+        const savedWorker = await newWorker.save();
         // Creo un token para el usuario usando la función de libs/jwt
-        const token: string = await createProfToken({
-            id: savedUser.id,
-            firstName: savedUser.firstName,
-            lastName: savedUser.lastName,
-            dni: savedUser.dni,
-            phone: savedUser.phone,
-            email: savedUser.email,
-            healthPlan: savedUser.healthPlan,
-            active: savedUser.active,
-            role: savedUser.role
+        const token: string = await createWorkerToken({
+            id: savedWorker.id,
+            firstName: savedWorker.firstName,
+            lastName: savedWorker.lastName,
+            dni: savedWorker.dni,
+            phone: savedWorker.phone,
+            email: savedWorker.email,
+            healthPlan: savedWorker.healthPlan,
+            active: savedWorker.active,
+            role: savedWorker.role
         });
         // Coloco una cookie con el token en la respuesta
         res.cookie('token', token);
         // Envío la respuesta de éxito al cliente
         res.status(201).json(
-            `El profesional ${savedUser.firstName} ${savedUser.lastName} fue creado con éxito!!`
+            `El profesional ${savedWorker.firstName} ${savedWorker.lastName} fue creado con éxito!!`
         );
     } catch (error: any) {
         // Envío respuesta de error al cliente
@@ -78,4 +78,4 @@ const profRegisterController = async (req: Request, res: Response) => {
     }
 }
 
-export default profRegisterController
+export default workerRegisterController

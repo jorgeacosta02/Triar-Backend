@@ -1,8 +1,8 @@
 import { Document } from "mongoose";
 
 
-// Interface for saving prof on db
-export interface IProfData extends Document {
+// Interface for saving worker on db
+export interface IWorkerData extends Document {
     id: string,
     firstName: string;
     lastName: string;
@@ -15,8 +15,8 @@ export interface IProfData extends Document {
     role: string;
 }
 
-// Interface prof from db
-export interface IProfDataFromDB {
+// Interface worker from db
+export interface IWorkerDataFromDB {
     id: string,
     firstName: string;
     lastName: string;
@@ -29,8 +29,8 @@ export interface IProfDataFromDB {
     role: string;
 }
 
-// Interface for register prof
-export interface IProfRegisterData {
+// Interface for register worker
+export interface IWorkerRegisterData {
     firstName: string;
     lastName: string;
     dni: string;
@@ -47,12 +47,12 @@ export interface ILoginData {
 
 // ApiResponse
 export interface ApiResponse {
-    user: IProfData;
+    user: IWorkerData;
     message: string;
 }
 
-// tokenInterface 'prof'
-export interface ITokenProfData {
+// tokenInterface 'worker'
+export interface ITokenWorkerData {
     id: string;
     firstName: string;
     lastName: string;

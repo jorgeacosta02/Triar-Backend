@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import { UserModel } from './models/UserModel';
-import { ProfModel } from './models/ProfModel';
+import { WorkerModel } from './models/WorkerModel';
 import { AppointmentModel } from './models/AppointmentModel';
 
 const sequelize = new Sequelize({
@@ -9,7 +9,7 @@ const sequelize = new Sequelize({
   username: 'postgres',
   password: 'admin',
   database: 'triar',
-  models: [UserModel, ProfModel, AppointmentModel],
+  models: [UserModel, WorkerModel, AppointmentModel],
 });
 
 export default sequelize;
