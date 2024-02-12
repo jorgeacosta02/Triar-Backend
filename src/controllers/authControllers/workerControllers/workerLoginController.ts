@@ -53,7 +53,7 @@ const workerLogInController = async (req: Request, res: Response) => {
 
         // Envío la respuesta de éxito al cliente
         console.log(worker);
-        res.status(201).json({prof: tokenData})
+        res.status(201).json({worker: tokenData})
     } catch (error: any) {
         // envío mensaje de error si ocurriera
         res.status(500).json({message: error.message});

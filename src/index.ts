@@ -20,7 +20,7 @@ async function main() {
     console.log("Conexión a la Base de Datos exitosa");
 
     // Sincronizar la base de datos
-    const syncOptions: ISyncOptions = { force: true };
+    const syncOptions: ISyncOptions = { force: false };
     await sequelize.sync(syncOptions);
     console.log("La base de datos se ha sincronizado correctamente");
 
