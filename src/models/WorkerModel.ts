@@ -48,8 +48,6 @@ import {
       defaultValue: 'prof', // Valor por defecto para la columna 'role'
     })
     role!: string;
-  
-    // Otros campos y decoradores según tu modelo
   }
   
   
