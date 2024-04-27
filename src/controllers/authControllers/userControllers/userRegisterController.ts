@@ -31,18 +31,20 @@ const userRegisterController = async (req: Request, res: Response) => {
         }
     });
 
-    // user already exists
+    // if user already exists
     if(user){
         return res.status(400).json({msg: 'El usuario ya existe.'})
     }
 
-
-    // user does not exists
+    // if user does not exists
     try {
+
         // Genero un salt para hashear
         const salt = await bcrypt.genSalt(10);
+
         // Hasheo la contraseña
         const hash = await bcrypt.hash(password, salt);
+
         // Creo un nuevo usuario
         const newUser = new UserModel ({
             firstName,
@@ -53,8 +55,10 @@ const userRegisterController = async (req: Request, res: Response) => {
             email,
             password: hash
         });
+        
         // Grabo el usuaro en la base de datos y lo coloco en una variable.
         const savedUser = await newUser.save();
+
         // Creo un token para el usuario usando la función de libs/jwt
         const token: string = await createUserToken({
             id: savedUser.id,
@@ -67,13 +71,16 @@ const userRegisterController = async (req: Request, res: Response) => {
             active: savedUser.active,
             role: savedUser.role
         });
+
         // Coloco una cookie con el token en la respuesta
         res.cookie('token', token);
+
         // Envío la respuesta de éxito al cliente
         res.status(201).json(
             `El usuario ${savedUser.firstName} ${savedUser.lastName} fue creado con éxito!!`
         );
     } catch (error: any) {
+        
         // Envío respuesta de error al cliente
         res.status(500).json({'error': error.message});
     }

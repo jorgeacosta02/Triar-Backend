@@ -15,10 +15,10 @@ const userLogInController = async (req: Request, res: Response) => {
     };
 
     try {
-        // busco el ususario en la db por email
+        // busco el ususario en la db por dni
         const user = await UserModel.findOne({
             where: {
-              dni // Ajusta esto según tus necesidades
+              dni
             },
         });
         // envío mensaje de error si no se encuenta el usuario 
