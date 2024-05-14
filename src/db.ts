@@ -9,7 +9,13 @@ const sequelize = new Sequelize({
   username: 'postgres',
   password: 'admin',
   database: 'triar',
-  models: [UserModel, WorkerModel, AppointmentModel],
+  models: [
+    UserModel,
+    WorkerModel,
+    AppointmentModel
+  ],
+  logging: false
+  
 });
 
 export default sequelize;

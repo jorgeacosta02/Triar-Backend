@@ -1,5 +1,6 @@
 import { WorkerModel } from "../models/WorkerModel";
 import { UserModel } from "../models/UserModel";
+import bcrypt from 'bcrypt';
 
 const dataBase = async () => {
 
@@ -13,13 +14,24 @@ const dataBase = async () => {
             password: '123456',
             healtPlan: 'One',
             active: true,
-            role: 'admin',
+            role: 'user',
         },
     ]
 
 
-    const insertedUsers:any = await UserModel.bulkCreate(users);
+    const hashedUsers = await Promise.all(users.map(async (user) => {
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(user.password, salt);
+        return {
+            ...user,
+            password: hash
+        };
+    }));
+
+    const insertedUsers:any = await UserModel.bulkCreate(hashedUsers);
     
+    console.log(insertedUsers);
+
     const workers = [
         {
             firstName: 'Juan',
@@ -30,20 +42,23 @@ const dataBase = async () => {
             password: '123456',
             healtPlan: 'One',
             active: true,
-            role: 'worker',
+            role: 'prof',
         },
     ]
 
+    const hashedWorkers = await Promise.all(workers.map(async (worker) => {
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(worker.password, salt);
+        return {
+            ...worker,
+            password: hash
+        };
+    }));
 
-    const insertedWorkers:any = await WorkerModel.bulkCreate(workers);
 
+    const insertedWorkers:any = await WorkerModel.bulkCreate(hashedWorkers);
 
-
-    // Inventory
-      
-    // console.log("Registros de artículo insertados correctamente:", insertedArticles);
-    // console.log("Registros de locaciones insertados correctamente:", insertedLocations);
-    // console.log("Registros de movimientos insertados correctamente:", insertedInventoryMovements);
+    console.log(insertedWorkers)
 
 };
 
